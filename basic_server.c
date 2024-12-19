@@ -9,9 +9,3 @@ int main() {
 
 
 
-int server_handshake(int* client){
-	int WKP = mkfifo("WKP", 0666);
-	wr
-
-
-}

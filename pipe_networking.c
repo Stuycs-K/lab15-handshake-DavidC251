@@ -11,6 +11,15 @@
   =========================*/
 int server_setup() {
   int from_client = 0;
+  mkfifo("WellKnownPipe", 0666);
+  int from_client = open("WellKnownPipe", O_RDONLY, 0);
+  //wait for connection
+  //int pp = client_handshake(from_client);
+  //remove WKP
+  close(from_client);
+
+
+	
   return from_client;
 }
 
@@ -25,6 +34,17 @@ int server_setup() {
   =========================*/
 int server_handshake(int *to_client) {
   int from_client;
+  from_client = server_setup();
+  //unblocked client
+  int bytes;
+  char* buff = malloc(256);
+  while(bytes = read(from_client, buff, 255)){
+	
+
+  }
+  to_client = open("PrivatePipe", O_WRONLY, 0);
+  //unblocks here
+  
   return from_client;
 }
 
@@ -40,6 +60,14 @@ int server_handshake(int *to_client) {
   =========================*/
 int client_handshake(int *to_server) {
   int from_server;
+  mkfifo("PrivatePipe", 0666);
+  to_server* = open("WellKnownPipe", O_WRONLY, 0);
+  char* str = malloc(256);
+  int bytes = sprintf(str, "%d", getpid());
+  write(to_server*, str, bytes);
+  //should unblock here
+  from_server = open("PrivatePipe", O_RDONLY, 0);
+  //pp blocked here
   return from_server;
 }
 
