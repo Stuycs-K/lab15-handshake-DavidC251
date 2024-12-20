@@ -15,7 +15,10 @@ int server_setup() {
   int from_client = open("WellKnownPipe", O_RDONLY, 0);
   //wait for connection
   //int pp = client_handshake(from_client);
-  //remove WKP
+  //remove WKP(create the subserver first)
+
+
+  
   close(from_client);
 
 
@@ -37,13 +40,26 @@ int server_handshake(int *to_client) {
   from_client = server_setup();
   //unblocked client
   int bytes;
-  char* buff = malloc(256);
-  while(bytes = read(from_client, buff, 255)){
-	
+  int* buff = malloc(sizeof(int));
+  bytes = read(from_client, buff, sizeof(unsigned int));
+  //step 5 reading PID(SYN)
+  printf("Server Recieved PID: %d \n", buff)
+  buff = malloc(sizeof(unsigned int));
+  to_client* = server_connect(from_client);
 
-  }
-  to_client = open("PrivatePipe", O_WRONLY, 0);
   //unblocks here
+  unsigned int buff;
+  int randFile = open("/dev/random", O_RDONLY, 0);
+  read(randomFile, buff, sizeof(unsigned int));
+	//SYN ACK
+  write(to_client*, buff, sizeof(unsigned int));
+
+
+  //open again?
+  unsigned int* buff2 = malloc(sizeof(unsigned int));
+  bytes = read(from_client, buff2, sizeof(unsigned int));
+  //step 9 reading ACK
+
   
   return from_client;
 }
@@ -62,12 +78,16 @@ int client_handshake(int *to_server) {
   int from_server;
   mkfifo("PrivatePipe", 0666);
   to_server* = open("WellKnownPipe", O_WRONLY, 0);
-  char* str = malloc(256);
-  int bytes = sprintf(str, "%d", getpid());
-  write(to_server*, str, bytes);
+  int* PID = getpid();
+  write(to_server*, PID, sizeof(int));
   //should unblock here
   from_server = open("PrivatePipe", O_RDONLY, 0);
-  //pp blocked here
+  unsigned int* SYN_ACK = malloc(sizeof(unsigned int));
+  read(from_server, SYN_ACK, sizeof(unsigned int));
+  unsigned int ACK = SYN_ACK + 1;
+  write(to_server*, ACK, sizeof(unsigned int));
+  
+
   return from_server;
 }
 
@@ -82,6 +102,7 @@ int client_handshake(int *to_server) {
   =========================*/
 int server_connect(int from_client) {
   int to_client  = 0;
+  to_client = open("PrivatePipe", O_WRONLY, 0);
   return to_client;
 }
 
