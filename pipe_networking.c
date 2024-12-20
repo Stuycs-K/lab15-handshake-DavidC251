@@ -12,7 +12,7 @@
 int server_setup() {
   int from_client = 0;
   mkfifo("WellKnownPipe", 0666);
-  int from_client = open("WellKnownPipe", O_RDONLY, 0);
+  from_client = open("WellKnownPipe", O_RDONLY, 0);
   //wait for connection
   //int pp = client_handshake(from_client);
   //remove WKP(create the subserver first)
@@ -41,23 +41,23 @@ int server_handshake(int *to_client) {
   //unblocked client
   int bytes;
   int* buff = malloc(sizeof(int));
-  bytes = read(from_client, buff, sizeof(unsigned int));
+  bytes = read(from_client, buff, sizeof(int));
   //step 5 reading PID(SYN)
-  printf("Server Recieved PID: %d \n", buff)
+  printf("Server Recieved PID: %d \n", *buff);
   buff = malloc(sizeof(unsigned int));
-  to_client* = server_connect(from_client);
+  *to_client = server_connect(from_client);
 
   //unblocks here
-  unsigned int buff;
+  unsigned int buff2 = malloc(sizeof(unsigned int))
   int randFile = open("/dev/random", O_RDONLY, 0);
-  read(randomFile, buff, sizeof(unsigned int));
+  read(randomFile, buff2, sizeof(unsigned int));
 	//SYN ACK
-  write(to_client*, buff, sizeof(unsigned int));
+  write(to_client*, buff2, sizeof(unsigned int));
 
 
   //open again?
-  unsigned int* buff2 = malloc(sizeof(unsigned int));
-  bytes = read(from_client, buff2, sizeof(unsigned int));
+  unsigned int* buff3 = malloc(sizeof(unsigned int));
+  bytes = read(from_client, buff3, sizeof(unsigned int));
   //step 9 reading ACK
 
   
@@ -82,10 +82,10 @@ int client_handshake(int *to_server) {
   write(to_server*, PID, sizeof(int));
   //should unblock here
   from_server = open("PrivatePipe", O_RDONLY, 0);
-  unsigned int* SYN_ACK = malloc(sizeof(unsigned int));
-  read(from_server, SYN_ACK, sizeof(unsigned int));
-  unsigned int ACK = SYN_ACK + 1;
-  write(to_server*, ACK, sizeof(unsigned int));
+  unsigned int* syn_ack = malloc(sizeof(unsigned int));
+  read(from_server, syn_ack, sizeof(unsigned int));
+  unsigned int ack = syn_ack + 1;
+  write(to_server*, ack, sizeof(unsigned int));
   
 
   return from_server;
