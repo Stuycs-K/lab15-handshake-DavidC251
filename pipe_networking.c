@@ -1,4 +1,5 @@
 #include "pipe_networking.h"
+
 //UPSTREAM = to the server / from the client
 //DOWNSTREAM = to the client / from the server
 /*=========================
@@ -19,11 +20,14 @@ int server_setup() {
  
 
   
+ 
+  //from_client = open("WellKnownPipe", O_RDONLY, 0);
+  
   
  //remove WKP(create the subserver first):
-  
-  //close(from_client);
-	
+  remove("WellKnownPipe"); 
+
+ 
   return from_client;
 }
 
@@ -38,7 +42,9 @@ int server_setup() {
   =========================*/
 int server_handshake(int *to_client) {
   int from_client;
-  from_client = server_setup();
+   from_client =  server_setup();
+   printf("ERR: %s \n", strerror(errno));
+
   *to_client = server_connect(from_client);
 
   
@@ -100,11 +106,11 @@ int server_connect(int from_client) {
   	int buff;
   	bytes = read(from_client, &buff, sizeof(int));
   	//step 5 reading PID(SYN)
-
+	
   	printf("SERVER RECIEVED PID: %d \n", buff);
-		
-
-  	
+	
+	//remove WKP
+	  	
   	
   	//unblocks here
   	int* buff2 = malloc(sizeof(int));
