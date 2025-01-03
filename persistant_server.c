@@ -5,18 +5,24 @@ int main() {
   	int to_client;
   	int from_client;
   
-  	from_client = server_handshake( &to_client );
-  
-    close(to_client);
-	close(from_client);
+  	from_client = server_setup();
+    to_client = server_connect(from_client);
+    
+    
 	//ctrl c the client
     while(){
-
-
+		
+		
 	}
+    close(to_client);
+	close(from_client);
 
 
   }
+
+
+
+  
 }
 
 

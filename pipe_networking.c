@@ -43,36 +43,8 @@ int server_setup() {
 int server_handshake(int *to_client) {
   int from_client;
    from_client =  server_setup();
+   to_client = server_connect(from_client);
    
-
-   
-  	*to_client = open("PrivatePipe", O_WRONLY, 0);
-  	int bytes;
-  	int buff;
-  	bytes = read(from_client, &buff, sizeof(int));
-  	//step 5 reading PID(SYN)
-	
-  	printf("SERVER RECIEVED PID: %d \n", buff);
-	
-	//remove WKP
-	  	
-  	
-  	//unblocks here
-  	int* buff2 = malloc(sizeof(int));
-  	int randFile = open("/dev/random", O_RDONLY, 0);
-  	read(randFile, buff2, sizeof(int));
-	//SYN ACK
- 	write(*to_client, buff2, sizeof(int));
-	printf("SERVER SENT SYN_ACK: %d \n", *buff2);
-
- 	 //open again?
-  	int* buff3 = malloc(sizeof(int));
-
-
-        
- 	 bytes = read(from_client, buff3, sizeof(int));
-        printf("SERVER RECIEVED ACK: %d \n", *buff3);
-  
   return from_client;
 }
 
