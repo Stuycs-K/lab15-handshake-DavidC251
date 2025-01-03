@@ -43,7 +43,7 @@ int server_setup() {
 int server_handshake(int *to_client) {
   int from_client;
    from_client =  server_setup();
-   to_client = server_connect(from_client);
+   *to_client = server_connect(from_client);
    
   return from_client;
 }
@@ -93,7 +93,7 @@ int client_handshake(int *to_server) {
 int server_connect(int from_client) {
   int to_client  = 0;
   to_client = open("PrivatePipe", O_WRONLY, 0);
-  if(fork() == 0){
+  
 
 	//sub server
 	//handle everything(half of server handshake should be here?)
@@ -126,7 +126,7 @@ int server_connect(int from_client) {
         printf("SERVER RECIEVED ACK: %d \n", *buff3);
   	//step 9 reading ACK
 
-  }
+  
   return to_client;
 }
 
