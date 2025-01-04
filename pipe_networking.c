@@ -71,6 +71,7 @@ int client_handshake(int *to_server) {
   //should unblock here
    
   from_server = open("PrivatePipe", O_RDONLY, 0);
+  remove("PrivatePipe");
   int* syn_ack = malloc(sizeof(int));
   read(from_server, syn_ack, sizeof(int));
   printf("CLIENT RECIEVED SYN_ACK: %d \n", *syn_ack);
@@ -125,7 +126,7 @@ int server_connect(int from_client) {
  	 bytes = read(from_client, buff3, sizeof(int));
         printf("SERVER RECIEVED ACK: %d \n", *buff3);
   	//step 9 reading ACK
-
+  
   
   return to_client;
 }
