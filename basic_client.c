@@ -12,7 +12,9 @@ int main() {
 	char* linebuff = malloc(256);
 	fgets(linebuff, 255, stdin);
 	int bytes;
+	
 	bytes = write(to_server, linebuff, 255);
+	
 	if(bytes <= 0){
 		break;
 	}

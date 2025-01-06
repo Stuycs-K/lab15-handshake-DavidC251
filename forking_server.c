@@ -16,12 +16,14 @@ int main() {
      	server_handshake_half(&to_client, from_client);
 	while(1){
 		char* linebuff = malloc(256);
-		if(read(from_client, linebuff, 255) <= 0){
+		int bytes;
+		bytes = read(from_client, linebuff, 255);
+		if(bytes <= 0){
 
 			break;
 		}
 		printf("SERVER RECIEVED MESSAGE: %s \n", linebuff);
-		
+		printf("BYTES: %d \n", bytes);
 
 
 	}
