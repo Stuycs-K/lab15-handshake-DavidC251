@@ -9,17 +9,14 @@ int main() {
 
    //from_server is private
    while(1){
-	
-	int* buff = malloc(sizeof(int));
-	if(read(from_server, buff, sizeof(int)) == 0){
-		
-		exit(1);
-		
+	char* linebuff = malloc(256);
+	fgets(linebuff, 255, stdin);
+	int bytes;
+	bytes = write(to_server, linebuff, 255);
+	if(bytes <= 0){
+		break;
 	}
-	else{
-        printf("RECIEVED RANDOM INT: %d \n", *buff);
- 	 }
-}
+   }
 }
 
 

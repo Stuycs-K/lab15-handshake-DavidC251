@@ -21,8 +21,7 @@
 #define ACK 2
 #define MESSAGE 3
 #define EXIT 4
-
-
+int server_handshake_half(int *to_client, int from_client);
 int server_handshake(int *to_client);
 int client_handshake(int *to_server);
 
