@@ -10,10 +10,11 @@ int main() {
     int from_client;
   
     from_client = server_setup();
-    to_client = server_connect(from_client);
+    
     
     if(fork() == 0){
-     	server_handshake_half(&to_client, from_client);
+     	to_client = server_connect(from_client);
+
 	while(1){
 		char* linebuff = malloc(256);
 		int bytes;
