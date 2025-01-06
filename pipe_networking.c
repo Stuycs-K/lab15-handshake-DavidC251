@@ -136,7 +136,9 @@ int server_connect(int from_client) {
 
 
 int server_handshake_half(int *to_client, int from_client){
-	server_connect(from_client);
+	
+	*to_client = server_connect(from_client);
+	return *to_client;
 	
 
 

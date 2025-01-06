@@ -13,7 +13,8 @@ int main() {
     
     
     if(fork() == 0){
-     	to_client = server_connect(from_client);
+     	to_client = server_handshake_half(&to_client, from_client);
+	
 
 	while(1){
 		char* linebuff = malloc(256);
@@ -23,8 +24,8 @@ int main() {
 
 			break;
 		}
-		printf("SERVER RECIEVED MESSAGE: %s \n", linebuff);
-		printf("BYTES: %d \n", bytes);
+		printf("SERVER RECIEVED MESSAGE: %s", linebuff);
+		
 
 
 	}
