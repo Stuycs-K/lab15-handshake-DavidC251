@@ -15,6 +15,7 @@ int server_setup() {
   mkfifo("WellKnownPipe", 0666);
   
   from_client = open("WellKnownPipe", O_RDONLY, 0);
+  
   //wait for connection
   //int pp = client_handshake(from_client);
  
